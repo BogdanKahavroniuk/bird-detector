@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  train:
+    build: .
+    container_name: bird_yolo_train
+    runtime: nvidia
+    environment:
+      - GDRIVE_FOLDER_ID=${GDRIVE_FOLDER_ID:-your_gdrive_folder_id}
+    volumes:
+      - ./weights:/app/weights
+      - ./dataset:/app/dataset
+      - ./runs:/app/runs
+      - ./gdrive_service_account.json:/app/gdrive_service_account.json:ro
+    command: python train.py
+
+  predict_batch:
+    build: .
+    container_name: bird_yolo_predict
+    runtime: nvidia
+    volumes:
+      - ./weights:/app/weights
+      - ./examples:/app/examples
+    command: python predict_video.py --folder examples --output examples --weights weights/best.pt --no-preview
+
+  jupyter:
+    build: .
+    container_name: bird_yolo_jupyter
+    runtime: nvidia
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+    command: jupyter notebook --ip=0.0.0.0 --port=8888 --no-browser --allow-root --NotebookApp.token=''
