@@ -8,7 +8,7 @@ from ultralytics import YOLO
 
 @dataclass
 class DatasetConfig:
-    # ID папки з Google Drive (https://drive.google.com/drive/folders/14c0cV2_apCLsbDr3V9HXju-BDCaPMAwE)
+   
     gdrive_folder_id: str = "14c0cV2_apCLsbDr3V9HXju-BDCaPMAwE"
 
 
