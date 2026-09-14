@@ -11,15 +11,15 @@ class DatasetConfig:
     # ID папки з Google Drive (https://drive.google.com/drive/folders/14c0cV2_apCLsbDr3V9HXju-BDCaPMAwE)
     gdrive_folder_id: str = "14c0cV2_apCLsbDr3V9HXju-BDCaPMAwE"
 
-    # Директорія, куди завантажиться неархівована папка
+
     download_dir: Path = Path("train_data")
 
-    # Внутрішні шляхи до зображень та розмітки
+
     images_dir: Path = Path("train_data/bird/images")
     labels_dir: Path = Path("train_data/bird/labels")
     output_dir: Path = Path("dataset")
 
-    # Параметри split & YOLO
+   
     train_ratio: float = 0.8
     seed: int = 42
     source_class_id: int = 24
@@ -36,7 +36,6 @@ def download_uncompressed_folder(config: DatasetConfig) -> None:
 
         url = f"https://drive.google.com/drive/folders/{config.gdrive_folder_id}"
 
-        # Завантаження структури папки напряму в train_data
         gdown.download_folder(
             url=url,
             output=str(config.download_dir),
