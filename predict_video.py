@@ -18,7 +18,6 @@ def get_compatible_device() -> str:
         capability = torch.cuda.get_device_capability(0)
         gpu_name = torch.cuda.get_device_name(0)
 
-        # Для PyTorch з CUDA 12+ зазвичай потрібна Compute Capability >= 7.0
         if capability[0] < 7:
             print(
                 f"[INFO] Виявлено GPU: {gpu_name} (Compute Capability {capability[0]}.{capability[1]})."
